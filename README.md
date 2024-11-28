@@ -1,2 +1,2 @@
 # TradeDataAnalysis
-This is a test repo hahaah, so funny
+This is a serious project, please add relevant statement

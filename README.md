@@ -1,4 +1,3 @@
-# TradeDataAnalysis
 **World Bank Data ETL Pipeline with Airflow**
 
 An ETL pipeline utilizing Apache Airflow to automate the extraction, transformation, and loading of global economic and environmental data from the World Bank API into a MySQL database.

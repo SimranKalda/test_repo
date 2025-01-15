@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Jan  9 21:34:36 2025
-
-@author: simran28
-"""
 
 import pandas as pd
 import matplotlib.pyplot as plt 
@@ -28,7 +23,6 @@ FROM indicators_copy
 data = pd.read_sql(query, connection)
 
 connection.close()
-
 
 data['co2_emissions'] = pd.to_numeric(data['co2_emissions'], errors='coerce')
 data['gdp'] = data['gdp'].astype(float)
@@ -87,16 +81,14 @@ sns.lmplot(
     palette='Set2',
     height=6,
     aspect=1.5,
-    markers=markers  # Use the correct number of markers
+    markers=markers  
 )
-
 
 plt.title("Unemployment vs Population Growth by Country Category", fontsize=20)
 plt.xlabel("Population Growth (%)", fontsize=12)
 plt.ylabel("Unemployment (%)", fontsize=12)
 plt.tight_layout()
 # plt.legend(title="Category")
-
 
 plt.savefig("q1_1_v1.pdf", dpi=1200)
 
@@ -116,21 +108,17 @@ country_classification = {
 
 data['country_category'] = data['country'].map(country_classification)
 
-
 markers_developed = 'o'  
 markers_developing = 's'  
 markers_underdeveloped = 'D' 
 
-
 unique_categories = data['country_category'].unique()
-
 
 plt.figure(figsize=(14, 8))
 
 
 sns.lineplot(data=data, x='year', y='gdp', hue='country_category', style='country_category', 
               markers={'Developed': markers_developed, 'Developing': markers_developing,'Underdeveloped':markers_underdeveloped}, palette='tab10')
-
 
 plt.title("GDP Trends by Country Category", fontsize=25)
 plt.xlabel("Year", fontsize=15)
@@ -147,14 +135,11 @@ plt.savefig("q2_2_v2.pdf", dpi=1200)
 
 top_5_countries = data.groupby('country')['gdp'].sum().nlargest(5).index
 
-# Step 2: Filter the data for the top 5 countries
 top_5_data = data[data['country'].isin(top_5_countries)]
 
-# Step 3: Create a line plot
 plt.figure(figsize=(14, 8))
 sns.lineplot(data=top_5_data, x='year', y='gdp', hue='country', marker='o', palette='tab10')
 
-# Adding titles and labels
 plt.title("GDP Trends of Top 5 Countries Over Years", fontsize=25
 )
 plt.xlabel("Year", fontsize=22)
@@ -162,7 +147,6 @@ plt.ylabel("GDP ($)", fontsize=22)
 plt.xticks(fontsize=17)
 plt.yticks(fontsize=17)
 
-# Save and show the chart
 plt.legend(title="Country", fontsize=12)
 plt.tight_layout()
 # plt.savefig("top_5_countries_gdp_trends_line_chart.pdf", dpi=1200)
@@ -184,10 +168,8 @@ def plot_sideways_bar_chart(data):
     Parameters:
         data (dict): Dictionary with country names as keys and floats as values.
     """
-    # Sort the dictionary by values (optional)
     data = dict(sorted(data.items(), key=lambda item: item[1]))
 
-    # Extract keys and values
     countries = list(data.keys())
     values = list(data.values())
 
@@ -324,7 +306,6 @@ def plot_cool_chart(xlim=[-10000, 1500000000], ylim=[100,9000], title="G20"):
     # Plotting total energy use vs population over time
     plt.figure()
     
-    # Scatter plot with Seaborn
     sns.scatterplot(x='population', y='energy_use', data=recollect, hue='year', palette='viridis')
     
     # Adding titles and labels
@@ -373,12 +354,7 @@ plt.savefig("q4_2_v1.pdf")
 # plt.savefig("percap", dpi=600)
 
 
-
-
-
-
 # # Q5
-
 
 country_classification = {
     "Argentina": "Developing",
@@ -419,15 +395,12 @@ data['Classification'] = data['country'].map(country_classification)
 
 plt.figure(figsize=(10, 6))
 
-# Create a scatter plot using Seaborn, color by Classification
 sns.scatterplot(data=data, x='fdi', y='unemployment', hue='Classification', style='Classification', s=100, palette="deep")
 
-# Add titles and labels
 plt.title('Impact of FDI on Unemployment Rates by Country Classification', fontsize=16)
 plt.xlabel('Foreign Direct Investment (FDI)', fontsize=14)
 plt.ylabel('Unemployment Rate (%)', fontsize=14)
 
-# Show the plot
 plt.legend(title='Country Classification')
 
 markers = ['o', 'X', 'D'][:len(unique_categories)]  # Ensure correct length
@@ -442,7 +415,7 @@ sns.lmplot(
     palette="deep",
     height=6,
     aspect=1.4,
-    markers=markers, # Use the correct number of markers
+    markers=markers, 
     scatter=True,
 )
 plt.title("Impact of FDI on Unemployment Rates by Country Classification",fontsize=20)
@@ -451,14 +424,11 @@ plt.ylabel("Unemployment %")
 # sns.scatterplot(data=data, x='fdi', y='unemployment', hue='Classification', style='Classification', s=100, palette="deep")
 plt.tight_layout()
 
-
-
 # plt.show()
 plt.savefig("q5_2_v1.pdf", dpi=1200)
 
 
 plt.figure()
-
 
 # plt.figure()
 sns.lmplot(data=data,
